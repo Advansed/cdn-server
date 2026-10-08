@@ -1,0 +1,20 @@
+[Unit]
+Description=STNG S3 CDN
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/cdn
+EnvironmentFile=/opt/cdn/.env
+ExecStart=/usr/local/bin/bun src/index.ts
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
